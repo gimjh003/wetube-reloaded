@@ -3,11 +3,12 @@
 /login -> Login
 /search -> Search
 
+/users/:id -> See user
+/users/logout -> Log out
 /users/edit -> Edit user
 /users/remove -> Remove user
 
-/videos/watch -> Watch video
-/videos/edit -> Edit video
-/videos/delete -> Remove video
-/videos/comments -> Comment on a video
-/videos/comments/remove -> Remove a comment
+/videos/:id -> See video
+/videos/:id/edit -> Edit video
+/videos/:id/delete -> Remove video
+/videos/upload -> Upload video
