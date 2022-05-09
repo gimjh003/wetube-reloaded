@@ -1,4 +1,4 @@
-export const trending = (req, res) => res.send("Home page videos");
+export const trending = (req, res) => res.render("./src/views/home");
 export const see = (req, res) => res.send("See video")
 export const edit = (req, res) => res.send("Edit video");
 export const upload = (req, res) => res.send("Upload video")
