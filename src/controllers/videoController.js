@@ -2,31 +2,43 @@ const fakeUser = {
     username: "Me",
     loggedIn: true
 };
-const videos = [
+let videos = [
     {title: "sweet home",
-     rating: 5,
-     comments: 10,
+     rating: 4,
+     comments: 108,
      createdAt: "me",
-     views: 100},
-    {title: "sweet home",
-     rating: 5,
-     comments: 10,
+     views: 167,
+     id: 0},
+    {title: "bitter home",
+     rating: 0,
+     comments: 1287,
      createdAt: "me",
-     views: 100},
-    {title: "sweet home",
+     views: 1287,
+     id: 1},
+    {title: "spicy home",
      rating: 5,
-     comments: 10,
+     comments: 2972,
      createdAt: "me",
-     views: 100},
-    {title: "sweet home",
-     rating: 5,
-     comments: 10,
+     views: 4847,
+     id: 2},
+    {title: "sour home",
+     rating: 2,
+     comments: 0,
      createdAt: "me",
-     views: 100},
+     views: 1,
+     id: 3},
 ];
-export const trending = (req, res) => res.render("home", {pageTitle: "Home", fakeUser: fakeUser, videos: videos});
-export const see = (req, res) => res.render("watch", {pageTitle: "Watch"});
-export const edit = (req, res) => res.render("edit", {pageTitle: "Edit"});
-export const upload = (req, res) => res.send("Upload video")
-export const remove = (req, res) => res.send("Remove video");
-export const search = (req, res) => res.send("Search");
+export const trending = (req, res) => res.render("home", {pageTitle: "Home", fakeUser, videos});
+export const watch = (req, res) => {
+    const {id} = req.params;
+    const video = videos[id];
+    res.render("watch", {pageTitle: `Watching : ${video.title}`, video});
+}
+export const getEdit = (req, res) => {
+    const {id} = req.params;
+    const video = videos[id]
+    res.render("edit", {pageTitle: `Editing : ${video.title}`, video});
+}
+export const postEdit = (req, res) => {
+
+};
