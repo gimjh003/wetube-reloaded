@@ -1,3 +1,9 @@
 extends base.pug
+include mixins/video
 block content
-    h1 Home
+    if fakeUser.loggedIn
+        h1 Welcome #{fakeUser.username}!! 
+        each video in videos
+            +video(video)
+    else
+        h1 Login please
