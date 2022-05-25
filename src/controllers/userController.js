@@ -106,7 +106,12 @@ export const finishGithubLogin = async(req, res) => {
         return res.redirect("/login");
     }
 };
-export const edit = (req, res) => res.send("Edit User");
+export const getEdit = (req, res) => {
+    return res.render("edit-profile", {pageTitle: "Edit Profile"});
+};
+export const postEdit = async(req, res) => {
+    return res.redirect("/users/edit");
+};
 export const logout = (req, res) => {
     req.session.destroy();
     return res.redirect("/");

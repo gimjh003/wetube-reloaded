@@ -21,9 +21,11 @@ html(lang="ko")
                             a(href="/join") Join
                     else
                         li
+                            a(href="/users/edit") Edit Profile
+                        li
                             a(href="/users/logout") Logout
                         li
-                            a(href="/my-pfofile") #{loggedInBy.username}
+                            a(href="/my-profile") #{loggedInBy.username}
         main
             block content
         include partials/footer.pug
