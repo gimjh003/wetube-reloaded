@@ -3,7 +3,11 @@ block content
     video(src=`/${video.fileUrl}` controls)
     div
         p=video.description
+        span=`Created by `
+        a(href=`/users/${video.owner._id}`)=video.owner.username
+        br
         small=video.createdAt
-    a(href=`${video.id}/edit`) Edit Video &rarr;
-    br
-    a(href=`${video.id}/delete`) Delete Video &rarr;
+    if String(video.owner._id) === loggedInBy._id
+        a(href=`${video.id}/edit`) Edit Video &rarr;
+        br
+        a(href=`${video.id}/delete`) Delete Video &rarr;

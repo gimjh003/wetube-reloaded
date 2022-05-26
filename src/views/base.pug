@@ -3,6 +3,7 @@ html(lang="ko")
     head 
         title #{pageTitle} | #{siteName}
         link(href="https://unpkg.com/mvp.css" rel="stylesheet")
+        link(rel="stylesheet" href="/static/css/styles.css")
     body
         header
             h1=pageTitle
@@ -23,9 +24,10 @@ html(lang="ko")
                         li
                             a(href="/users/logout") Logout
                         li
-                            a(href="/my-profile") #{loggedInBy.username}
+                            a(href=`/users/${loggedInBy._id}`) #{loggedInBy.username}
                         li
                             a(href="/videos/upload") Upload Video
         main
             block content
         include partials/footer.pug
+        script(src="./static/js/main.js")
