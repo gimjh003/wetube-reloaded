@@ -17,10 +17,10 @@ export const postJoin = async(req, res) => {
     }
     try{
         await User.create({
-            name,
             email,
             username,
             password,
+            name,
             location,
         })
     } catch(error){
@@ -108,6 +108,7 @@ export const finishGithubLogin = async(req, res) => {
     }
 };
 export const getEdit = (req, res) => {
+    console.log(req.session.user);
     return res.render("users/edit-profile", {pageTitle: "Edit Profile"});
 };
 export const postEdit = async(req, res) => {
@@ -131,7 +132,7 @@ export const postEdit = async(req, res) => {
         }
     }
     const updatedUser = await User.findByIdAndUpdate(_id, {
-        avatarUrl: file? file.path:avatarUrl, name, email, username, location
+        avatarUrl: file? file.path:avatarUrl, name, email, username, location,
     }, {new: true});
     req.session.user = updatedUser;
     return res.redirect("/users/edit");
@@ -141,20 +142,22 @@ export const logout = (req, res) => {
     return res.redirect("/"); 
 };
 export const getChangePassword = (req, res) => {
-    console.log(req.session.user.socialOnly)
     if(req.session.user.socialOnly){
-        return res.redirect("/users/edit");
+        return res.status(403).redirect("/users/edit");
     }
-    return res.render("users/change-password", {pageTitle:"Change Password"});
-}
+    return res.render("users/change-password", {pageTitle: "Change Password"});
+};
 export const postChangePassword = async(req, res) => {
     const {
         session: {
-            user: {_id},
+            user: {_id, socialOnly},
         },
         body: {oldPassword, newPassword, newPasswordConfirm},
     } = req
-    const user = User.findById(_id);
+    if(socialOnly){
+        return res.redirect("/users/edit");
+    }
+    const user = await User.findById(_id);
     const ok = await bcrypt.compare(oldPassword, user.password)
     if(!ok){
         return res.status(400).render("users/change-password", {pageTitle: "Change Password", errorMessage: "The current password is incorrect"});

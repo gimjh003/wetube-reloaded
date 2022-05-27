@@ -5,7 +5,7 @@ block content
     form(method="POST" enctype="multipart/form-data")
         label(for="video") Video File
         input(type="file" accept="video/*" name="video" id="video" required)
-        input(placeholder="Title", required, type="text", name="title", maxlength=80)
-        input(placeholder="Description", type="text", name="description", minlength=20)
+        input(placeholder="Title", required, type="text", name="title", maxlength=40)
+        input(placeholder="Description", type="text", name="description")
         input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags")
         input(type="submit", value="Upload Video")

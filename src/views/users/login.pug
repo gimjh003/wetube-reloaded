@@ -3,13 +3,11 @@ extends ../base
 block content
     if errorMessage
         span=errorMessage
-    form(method="POST")
+    form(method="POST").user-form
         input(type="text", required, name="username" placeholder="username")
         input(type="password", required, name="password", placeholder="password")
         input(type="submit", value="Login")
-        br
-        a(href="/users/github/start") Continue with Github &rarr;
-    hr
-    div
+        include ../partials/social-login.pug
+    div.auth-switch
         span Don't have an account?   
         a(href="/join") Join now &rarr;
