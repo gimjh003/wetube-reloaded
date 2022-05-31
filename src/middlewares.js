@@ -8,6 +8,7 @@ export const localsMiddleware = (req, res, next) => {
 }
 
 export const protectorMiddleware = (req, res, next) => {
+    console.log("I'm here!");
     if(req.session.loggedIn){
         next()
     } else{

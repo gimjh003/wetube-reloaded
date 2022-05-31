@@ -13,31 +13,40 @@ const videoController = document.getElementById("videoController");
 video.volume = 0.5;
 
 const handlePlay = () => {
-    if(video.paused){
+    if (video.paused) {
         video.play();
-    } else{
+        playBtn.className = "fas fa-pause";
+      } else {
         video.pause();
-    }
-    playBtn.innerText = video.paused? "Play":"Pause";
-    return;
+        playBtn.className = "fas fa-play";
+      }
+      return;
 }
 
 const handleMute = (e) => {
-    if(video.muted){
+    if (video.muted) {
         video.muted = false;
         volumeRange.value = video.volume;
+        muteBtn.className = "fas fa-volume-up";
     } else {
-        volumeRange.value = 0;
         video.muted = true;
+        volumeRange.value = 0;
+        muteBtn.className = "fas fa-volume-mute";
     }
-    muteBtn.innerText = video.muted ? "Unmute":"Mute";
     return;
 }
 
 const handleVolumeChange = (e) => {
-    muteBtn.innerText = "Mute";
-    video.muted = false;
-    video.volume = e.target.value;
+    if (video.muted) {
+        video.muted = false;
+        volumeBtn.className = "fas fa-volume-mute";
+    if (value === "0") {
+        volumeBtn.className = "fas fa-volume-off";
+    } else {
+        volumeBtn.className = "fas fa-volume-up";
+    }
+    video.volume = volumeValue = value;
+    }
     return;
 }
 
@@ -115,21 +124,34 @@ const handleMouseLeave = () => {
     return;
 }
 
-const handleKeydown = (event) => {
-    console.log(event.code);
-    if(event.code=="Escape"){
-        document.exitFullscreen();
-        fullScreen.innerText = "Enter Fullscreen";
+const handleKeyDown = (event) => {
+    if (event.code === "Escape") {
+      document.exitFullscreen();
+      fullScreen.innerText = "Enter fullscreen";
     }
-    if(event.code=="KeyF"){
-        videoContainer.requestFullscreen();
-        fullScreen.innerText = "Exit Fullscreen";   
+    if (event.code === "KeyF") {
+      videoContainer.requestFullscreen();
+      fullScreen.innerText = "Exit fullscreen";
     }
-    if(event.code=="Space"){
-        handlePlay();
+    if (event.code === "Space") {
+      handlePlayAndStop();
     }
-    return
-}
+    if (event.code === "ArrowRight") {
+      timeline.value += 1;
+      video.currentTime += 1;
+    }
+    if (event.code === "ArrowLeft") {
+      if (video.currentTime > 0) {
+        timeline.value -= 1;
+        video.currentTime -= 1;
+      }
+    }
+    return;
+  };
+
+if (video.readyState === 4) {
+    handleLoadedMetadata();
+  }
 
 playBtn.addEventListener("click", handlePlay);
 muteBtn.addEventListener("click", handleMute);

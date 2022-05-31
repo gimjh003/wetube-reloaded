@@ -108,7 +108,6 @@ export const finishGithubLogin = async(req, res) => {
     }
 };
 export const getEdit = (req, res) => {
-    console.log(req.session.user);
     return res.render("users/edit-profile", {pageTitle: "Edit Profile"});
 };
 export const postEdit = async(req, res) => {
@@ -150,7 +149,7 @@ export const getChangePassword = (req, res) => {
 export const postChangePassword = async(req, res) => {
     const {
         session: {
-            user: {_id, socialOnly},
+            user: {_id, socialOnly, password},
         },
         body: {oldPassword, newPassword, newPasswordConfirm},
     } = req
@@ -158,7 +157,7 @@ export const postChangePassword = async(req, res) => {
         return res.redirect("/users/edit");
     }
     const user = await User.findById(_id);
-    const ok = await bcrypt.compare(oldPassword, user.password)
+    const ok = await bcrypt.compare(oldPassword, password)
     if(!ok){
         return res.status(400).render("users/change-password", {pageTitle: "Change Password", errorMessage: "The current password is incorrect"});
     }
@@ -175,6 +174,5 @@ export const see = async(req, res) => {
     if(!user){
         return res.status(404).render("404", {pageTitle: "404 Not Found"});
     }
-    console.log(user);
     return res.render("users/profile", {pageTitle: user.username, user})
 };
