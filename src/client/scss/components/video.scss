@@ -8,7 +8,7 @@
         background-color: ivory;
     }
     .video-mixin__data{
-        padding: 0px 15px;
+        padding: 0px 5px;
         .video-mixin__title{
             font-size: 15px;
             display: block;
@@ -34,7 +34,7 @@
 #videoController {
     color: white;
     opacity: 0;
-    width: 600px;
+    width: 98%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -47,6 +47,9 @@
     transition: all 0.3s ease;
     position: absolute;
     bottom: 10px;
+    #timeline{
+        width: 70%;
+    }
     &:hover{
         opacity: 1;
     }

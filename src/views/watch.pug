@@ -1,6 +1,6 @@
 extends base.pug
 block content
-    div#videoContainer
+    div#videoContainer(data-id=video._id)
         video(src=`/${video.fileUrl}`)
         div#videoController
             i#play.fas.fa-play
@@ -10,7 +10,7 @@ block content
             input(type="range", step="0.1", min=0)#timeline
             i#mute.fas.fa-volume-up
             input(type="range", value="0.5", step="0.1", min="0", max="1")#volume
-            button#fullScreen Enter Fullscreen
+            i#fullScreen.fas.fa-expand
     div
     div
         h1=video.title

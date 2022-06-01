@@ -14,3 +14,11 @@
         font-weight: 600;
     }
 }
+.edit-profile-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .user-profile-img{
+        margin-bottom: 40px;
+    }
+}

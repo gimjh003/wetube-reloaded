@@ -92,10 +92,17 @@ const handleMouseUp = () => {
 const handleFullScreen = () => {
     if(!document.fullscreenElement){
         videoContainer.requestFullscreen();
-        fullScreen.innerText = "Exit Fullscreen";   
     } else{
         document.exitFullscreen();
-        fullScreen.innerText = "Enter Fullscreen";
+    }
+    return;
+}
+
+const checkFullscreen = () => {
+    if(document.fullscreenElement){
+        fullScreen.className = "fas fa-compress";
+    } else {
+        fullScreen.className = "fas fa-expand";
     }
     return;
 }
@@ -125,13 +132,14 @@ const handleMouseLeave = () => {
 }
 
 const handleKeyDown = (event) => {
-    if (event.code === "Escape") {
-      document.exitFullscreen();
-      fullScreen.innerText = "Enter fullscreen";
-    }
     if (event.code === "KeyF") {
       videoContainer.requestFullscreen();
-      fullScreen.innerText = "Exit fullscreen";
+      fullScreen.className = "fas fa-compress";
+    }
+    if (event.code === "Escape") {
+      if(document.fullscreenElement){
+          document.exitFullscreen();
+      }
     }
     if (event.code === "Space") {
       handlePlay();
@@ -153,15 +161,25 @@ if (video.readyState === 4) {
     handleLoadedMetadata();
   }
 
+const handleEnded = () => {
+    const {id} = videoContainer.dataset;
+    fetch(`/api/videos/${id}/view`, {
+        method: "POST",
+    });
+};
+
 playBtn.addEventListener("click", handlePlay);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
-video.addEventListener("mousemove", handleMouseMove);
-video.addEventListener("mouseleave", handleMouseLeave);
+videoContainer.addEventListener("mousemove", handleMouseMove);
+videoContainer.addEventListener("mouseleave", handleMouseLeave);
+video.addEventListener("click", handlePlay);
+video.addEventListener("ended", handleEnded);
 timeline.addEventListener("input", handleTimeChange);
 timeline.addEventListener("mousedown", handleMouseDown);
 timeline.addEventListener("mouseup", handleMouseUp);
 fullScreen.addEventListener("click", handleFullScreen);
 document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("fullscreenchange", checkFullscreen);
