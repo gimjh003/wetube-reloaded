@@ -1,6 +1,7 @@
 extends base.pug
 include mixins/video
 block content
+    h1 Welcome to the wetube!
     div.video-grid
         each video in videos
             +video(video)

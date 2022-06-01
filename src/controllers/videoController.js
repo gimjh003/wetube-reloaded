@@ -10,6 +10,7 @@ export const home = (req, res) => {
 };
 */
 export const home = async(req, res) => {
+    res.locals.keyword = "";
     try{
         const videos = await Video.find({}).sort({createdAt: "desc"}).populate("owner");
         return res.render("home", {pageTitle: "Home", videos});
@@ -95,6 +96,7 @@ export const deleteVideo = async(req, res) => {
 
 export const search = async(req, res) => {
     const {keyword} = req.query;
+    res.locals.keyword = keyword;
     let videos = await Video.find({}).populate("owner");
     if(keyword){
         videos = await Video.find({title: {$regex:new RegExp(keyword, "i")}}).populate("owner");

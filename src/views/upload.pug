@@ -4,8 +4,8 @@ block content
         span=errorMessage
     form(method="POST" enctype="multipart/form-data").upload-form
         label(for="video") Video File
-        input(type="file" accept="video/*" name="video" id="video" required)
-        input(placeholder="Title", required, type="text", name="title", maxlength=40)
-        input(placeholder="Description", type="text", name="description")
-        input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags")
-        input(type="submit", value="Upload Video")
+        input(type="file" accept="video/*" name="video" id="video" required).default-input
+        input(placeholder="Title", required, type="text", name="title", maxlength=40).default-input
+        input(placeholder="Description", type="text", name="description").default-input
+        input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags").default-input
+        input(type="submit", value="Upload Video").default-input

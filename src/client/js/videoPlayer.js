@@ -134,7 +134,7 @@ const handleKeyDown = (event) => {
       fullScreen.innerText = "Exit fullscreen";
     }
     if (event.code === "Space") {
-      handlePlayAndStop();
+      handlePlay();
     }
     if (event.code === "ArrowRight") {
       timeline.value += 1;
@@ -164,4 +164,4 @@ timeline.addEventListener("input", handleTimeChange);
 timeline.addEventListener("mousedown", handleMouseDown);
 timeline.addEventListener("mouseup", handleMouseUp);
 fullScreen.addEventListener("click", handleFullScreen);
-document.addEventListener("keydown", handleKeydown);
+document.addEventListener("keydown", handleKeyDown);

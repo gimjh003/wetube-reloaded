@@ -3,13 +3,13 @@ block content
     if errorMessage
         span=errorMessage
     form(method="POST").user-form
-        input(type="text", required, name="name" placeholder="name")
-        input(type="email", required, name="email" placeholder="email")
-        input(type="text", required, name="username" placeholder="username")
-        input(type="password", required, name="password", placeholder="password")
-        input(type="password", required, name="password2", placeholder="confirm password")
-        input(type="text", name="location" placeholder="location")
-        input(type="submit", value="Join")
+        input(type="text", required, name="name" placeholder="name").default-input
+        input(type="email", required, name="email" placeholder="email").default-input
+        input(type="text", required, name="username" placeholder="username").default-input
+        input(type="password", required, name="password", placeholder="password").default-input
+        input(type="password", required, name="password2", placeholder="confirm password").default-input
+        input(type="text", name="location" placeholder="location").default-input
+        input(type="submit", value="Join").default-input
         include ../partials/social-login.pug
     div.auth-switch
         span Already have an account?   

@@ -1,11 +1,13 @@
 header
     a(href="/").header__logo
-                    i.fab.fa-youtube
+        i.fab.fa-youtube
+    form(method="GET" action="/search").search-form
+        input(placeholder="Search by title", name="keyword", type="text" value=`${keyword? keyword:""}`).search-form__input
+        button.search-form__button
+            i.fas.fa-search
     nav
         ul
             li
-                a(href="/search")
-                    i.fas.fa-search
             if !loggedIn
                 li
                     a(href="/login").header__btn Login

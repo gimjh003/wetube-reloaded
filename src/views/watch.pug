@@ -12,10 +12,12 @@ block content
             input(type="range", value="0.5", step="0.1", min="0", max="1")#volume
             button#fullScreen Enter Fullscreen
     div
+    div
+        h1=video.title
         p=video.description
-        span=`Created by `
-        a(href=`/users/${video.owner._id}`)=video.owner.username
-        br
+        div.videoCreator
+            span=`Created by `
+            a(href=`/users/${video.owner._id}`)=video.owner.username
         small=video.createdAt
     if String(video.owner._id) === loggedInBy._id
         a(href=`${video.id}/edit`) Edit Video &rarr;
