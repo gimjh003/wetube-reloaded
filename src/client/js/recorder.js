@@ -20,7 +20,7 @@ init();
 const handleDownload = () => {
     const a = document.createElement("a");
     a.href = videoFile;
-    a.download = "recording.wav";
+    a.download = "recording.webm";
     document.body.appendChild(a);
     a.click();
 }
