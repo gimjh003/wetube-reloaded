@@ -1,4 +1,3 @@
-corePath:"https://unpkg.com/@ffmpeg/core@0.8.5/dist/ffmpeg-core.js";
 import {createFFmpeg, fetchFile} from "@ffmpeg/ffmpeg";
 const startBtn = document.getElementById("startBtn");
 const video = document.getElementById("preview");
@@ -20,12 +19,13 @@ const init = async() => {
 init();
 
 const handleDownload = async() => {
+    // TypeError : Failed to construct recorder.js:79 'Blob': The object must have a callable 
     const ffmpeg = createFFmpeg({corePath:'https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js',log:true});
     await ffmpeg.load();
     ffmpeg.FS("writeFile", "recording.webm", await fetchFile(videoFile));
     await ffmpeg.run("-i", "recording.webm", "-r", "60", "recording.mp4");
     const mp4File = ffmpeg.FS("readFile", "recording.mp4");
-    const mp4Blob = new Blob(mp4File.buffer, {type: "video/mp4"});
+    const mp4Blob = new Blob([mp4File.buffer], {type: "video/mp4"});
     const mp4Url = URL.createObjectURL(mp4Blob);
     const a = document.createElement("a");
     a.href = mp4Url;
