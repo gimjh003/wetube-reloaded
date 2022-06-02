@@ -20,7 +20,7 @@ const init = async() => {
 init();
 
 const handleDownload = async() => {
-    const ffmpeg = createFFmpeg({log:true});
+    const ffmpeg = createFFmpeg({corePath:'https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js',log:true});
     await ffmpeg.load();
     ffmpeg.FS("writeFile", "recording.webm", await fetchFile(videoFile));
     await ffmpeg.run("-i", "recording.webm", "-r", "60", "recording.mp4");
