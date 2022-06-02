@@ -1,3 +1,4 @@
+corePath:"https://unpkg.com/@ffmpeg/core@0.8.5/dist/ffmpeg-core.js";
 import {createFFmpeg, fetchFile} from "@ffmpeg/ffmpeg";
 const startBtn = document.getElementById("startBtn");
 const video = document.getElementById("preview");
