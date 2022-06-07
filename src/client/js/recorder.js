@@ -80,7 +80,7 @@ const handleStart = () => {
         actionBtn.addEventListener("click", handleDownload);
     }
     recorder.start();
-    setTimeout(recorder.stop, 5000);
+    setTimeout(()=>{recorder.stop()}, 5000);
     return;
 }
 

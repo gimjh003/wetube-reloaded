@@ -21,8 +21,8 @@ header
                     a(href="/videos/upload") Upload Video
                 li
                     a(href=`/users/${loggedInBy._id}`)
-                        if loggedInBy.avatarUrl === ""
-                            span #{loggedInBy.username}
-                        else
+                        if loggedInBy.avatarUrl
                             img(src="/"+loggedInBy.avatarUrl crossorigin).header__avatar
+                        else
+                            span #{loggedInBy.username}
 div#header-box

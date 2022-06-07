@@ -49,11 +49,13 @@ export const postEdit = async(req, res) => {
         return res.status(404).render("404", {pageTitle: "Video not found."});
     }
     if(String(video.owner) !== _id){
+        req.flash("error", "ACCESS DENIED");
         return res.status(403).redirect("/");
     }
     await Video.findByIdAndUpdate(id, {title,
                                  description,
                                  hashtags: Video.formatHashtags(hashtags)});
+    req.flash("info", "VIDEO UPDATED");
     return res.redirect(`/videos/${id}`);
 };
 export const getUpload = (req, res) => {
@@ -70,7 +72,7 @@ export const postUpload = async(req, res) => {
         const newVideo = await Video.create({
             title,
             fileUrl: video[0].path,
-            thumbUrl: thumb[0].path,
+            thumbUrl: thumb[0].path.replace(/[\\]/g, "/"),
             description,
             hashtags: Video.formatHashtags(hashtags),
             owner: _id,
@@ -79,19 +81,21 @@ export const postUpload = async(req, res) => {
         user.videos.push(newVideo._id);
         await user.save()
     } catch(error) {
-        return res.status(400).render("upload", {pageTitle: "Upload Video", errorMessage: error._message});
+        req.flash("error", error._message);
+        return res.status(400).render("upload", {pageTitle: "Upload Video"});
     }
     return res.redirect("/");
 };
 
 export const deleteVideo = async(req, res) => {
-    const {user: {_id}} = req.session;
+    const {user} = req.session;
     const {params:{id}} = req;
     const video = await Video.findOne({_id:id});
     if(!video){
         return res.render("404", {pageTitle: "Video not found."});
     }
-    if(String(video.owner) !== _id){
+    if(String(video.owner) !== user._id){
+        req.flash("error", "ACCESS DENIED");
         return res.status(304).redirect("/");
     };
     await Video.findByIdAndDelete(id);

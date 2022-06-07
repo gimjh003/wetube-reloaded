@@ -1,5 +1,6 @@
 import express from "express";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import morgan from "morgan";
 import {localsMiddleware} from "./middlewares";
@@ -23,6 +24,7 @@ app.use(session({secret: process.env.COOKIE_SECRET,
                  saveUninitialized: false,
                  store: MongoStore.create({mongoUrl: process.env.DB_URL}),
                 }));
+app.use(flash());
 app.use(localsMiddleware);
 app.use((req, res, next)=>{
     res.header("Cross-Origin-Embedder-Policy", "require-corp");

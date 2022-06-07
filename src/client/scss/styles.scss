@@ -31,3 +31,36 @@ main{
     margin: 0 auto;
     margin-top: 130px;
 }
+@keyframes goAway{
+    from{
+        transform: none;
+    }
+    50%{
+        opacity: 1;
+        transform: none;
+    }
+    to{
+        transform: translateY(-50px);
+    }
+}
+.message{
+    position: absolute;
+    top: 83px;
+    left:0;
+    right:0;
+    margin: 0 auto;
+    max-width: 200px;
+    padding: 10px 20px;
+    border-radius: 500px;
+    text-align: center;
+    opacity: 0;
+    animation: goAway 3s ease-out;
+    &.error{
+        background-color: tomato;
+        color: white;
+    }
+    &.info{
+        background-color: royalblue;
+        color: white;
+    }
+}
