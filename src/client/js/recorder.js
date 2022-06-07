@@ -1,15 +1,24 @@
 import {createFFmpeg, fetchFile} from "@ffmpeg/ffmpeg";
-const startBtn = document.getElementById("startBtn");
+const actionBtn = document.getElementById("actionBtn");
 const video = document.getElementById("preview");
 
 let stream;
 let recorder;
 let videoFile;
 
+const files = {
+    input: "recording.webm",
+    output: "recording.mp4",
+    thumb: "thumbnail.jpg",
+}
+
 const init = async() => {
     stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
-        video: true,
+        video: {
+            width: 1024,
+            height: 576,
+        },
     });
     video.srcObject = stream;
     video.play();
@@ -18,34 +27,47 @@ const init = async() => {
 
 init();
 
-const handleDownload = async() => {
-    // TypeError : Failed to construct recorder.js:79 'Blob': The object must have a callable 
-    const ffmpeg = createFFmpeg({corePath:'https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js',log:true});
-    await ffmpeg.load();
-    ffmpeg.FS("writeFile", "recording.webm", await fetchFile(videoFile));
-    await ffmpeg.run("-i", "recording.webm", "-r", "60", "recording.mp4");
-    const mp4File = ffmpeg.FS("readFile", "recording.mp4");
-    const mp4Blob = new Blob([mp4File.buffer], {type: "video/mp4"});
-    const mp4Url = URL.createObjectURL(mp4Blob);
+const makeDownload = (url, name) => {
     const a = document.createElement("a");
-    a.href = mp4Url;
-    a.download = "recording.mp4";
+    a.href = url;
+    a.download = name;
     document.body.appendChild(a);
-    a.click();
-}
-
-const handleStop = () => {
-    recorder.stop();
-    startBtn.innerText = "Download Recording";
-    startBtn.removeEventListener("click", handleStop);
-    startBtn.addEventListener("click", handleDownload);
+    a.click()
     return;
 }
 
+const handleDownload = async() => {
+    actionBtn.removeEventListener("click", handleDownload);
+    actionBtn.innerText = "Transcoding...";
+    actionBtn.disabled = true;
+    const ffmpeg = createFFmpeg({corePath:'https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js',log:true});
+    await ffmpeg.load();
+    ffmpeg.FS("writeFile", files.input, await fetchFile(videoFile));
+    await ffmpeg.run("-i", files.input, "-r", "60", files.output);
+    await ffmpeg.run("-i", files.input, "-ss", "00:00:01", "-frames:v", "1", files.thumb);
+    const mp4File = ffmpeg.FS("readFile", files.output);
+    const thumbFile = ffmpeg.FS("readFile", files.thumb);
+    const mp4Blob = new Blob([mp4File.buffer], {type: "video/mp4"});
+    const thumbBlob = new Blob([thumbFile.buffer], {type: "image/jpg"});
+    const mp4Url = URL.createObjectURL(mp4Blob);
+    const thumbUrl = URL.createObjectURL(thumbBlob);
+    makeDownload(mp4Url, files.output);
+    makeDownload(thumbUrl, files.thumb);
+    ffmpeg.FS("unlink", files.output);
+    ffmpeg.FS("unlink", files.thumb);
+    ffmpeg.FS("unlink", files.input);
+    URL.revokeObjectURL(mp4Url);
+    URL.revokeObjectURL(thumbUrl);
+    URL.revokeObjectURL(videoFile);
+    actionBtn.addEventListener("click", handleStart);
+    actionBtn.disabled = false;
+    actionBtn.innerText = "Record Again";
+}
+
 const handleStart = () => {
-    startBtn.innerText = "Stop Recording";
-    startBtn.removeEventListener("click", handleStart);
-    startBtn.addEventListener("click", handleStop);
+    actionBtn.innerText = "Recording";
+    actionBtn.disabled = true;
+    actionBtn.removeEventListener("click", handleStart);
     recorder = new MediaRecorder(stream);
     recorder.ondataavailable = (e) => {
         videoFile = URL.createObjectURL(e.data);
@@ -53,9 +75,13 @@ const handleStart = () => {
         video.src = videoFile;
         video.loop = true;
         video.play();
+        actionBtn.innerText = "Download";
+        actionBtn.disabled = false;
+        actionBtn.addEventListener("click", handleDownload);
     }
     recorder.start();
+    setTimeout(recorder.stop, 5000);
     return;
 }
 
-startBtn.addEventListener("click", handleStart);
+actionBtn.addEventListener("click", handleStart);
