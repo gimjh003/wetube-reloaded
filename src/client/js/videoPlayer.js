@@ -1,4 +1,3 @@
-console.log("video player");
 const video = document.querySelector("video")
 const playBtn = document.getElementById("play");
 const muteBtn = document.getElementById("mute");
@@ -132,6 +131,9 @@ const handleMouseLeave = () => {
 }
 
 const handleKeyDown = (event) => {
+    if(event.target.id === "textarea"){
+        return;
+    }
     if (event.code === "KeyF") {
       videoContainer.requestFullscreen();
       fullScreen.className = "fas fa-compress";

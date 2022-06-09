@@ -7,7 +7,10 @@
     justify-content: center;
     margin-bottom: 50px;
     img{
+        width: 150px;
+        height: 150px;
         margin-bottom: 20px;
+        object-fit: cover;
     }
     h3{
         font-size: 20px;
@@ -19,6 +22,9 @@
     flex-direction: column;
     align-items: center;
     .user-profile-img{
-        margin-bottom: 40px;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        margin-bottom: 30px;
     }
 }
