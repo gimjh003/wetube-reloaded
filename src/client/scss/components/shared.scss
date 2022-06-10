@@ -1,12 +1,12 @@
 .empty__message{
     margin-bottom: 50px;
-    text-align: center;
     font-size: 18px;
 }
 .video-grid{
     display: grid;
     gap: 50px;
     grid-template-columns: repeat(4, 1fr);
+    margin-top: 60px;
 }
 .auth-switch{
     text-align: center;
@@ -15,8 +15,12 @@
         text-decoration: underline;
     }
 }
-
 .avatar{
     width: 150px;
     border-radius: 50%;
+    margin-bottom: 30px;
+}
+h1{
+    font-size: 45px;
+    font-weight: 700;
 }

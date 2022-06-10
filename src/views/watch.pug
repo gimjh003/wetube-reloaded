@@ -12,21 +12,24 @@ block content
             i#mute.fas.fa-volume-up
             input(type="range", value="0.5", step="0.1", min="0", max="1")#volume
             i#fullScreen.fas.fa-expand
-    div
-        h1=video.title
-        p=video.description
-        div.videoCreator
+    div.video-info
+        h1.video-info__title=video.title
+        p.video-info__desc=video.description
+        div.video-info__hashtags
+            each hashtag in video.hashtags
+                span.hashtag=hashtag
+        div.video-info__creator
             span=`Created by `
             a(href=`/users/${video.owner._id}`)=video.owner.username
-        small=video.createdAt
+        small.video-info__date=video.createdAt
         if String(video.owner._id) === loggedInBy._id
-            a(href=`${video.id}/edit`) Edit Video &rarr;
-            br
-            a(href=`${video.id}/delete`) Delete Video &rarr;
+            div.video-info__config
+                a(href=`${video.id}/edit`) Edit
+                a(href=`${video.id}/delete`) Delete
     div.video__comment
         if loggedIn
             form.video__comment-form#commentForm
-                textarea(name="" cols="30" rows="10" placeholder="Write your comment here.")#textarea
+                input(placeholder="Write your comment here.")#textarea
                 button Add Comment
         div#comments
             ul

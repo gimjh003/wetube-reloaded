@@ -24,16 +24,27 @@ header{
             font-size: 14px;
             font-weight: 600;
             text-transform: uppercase;
+            transition: all 0.3s ease;
+            &:hover{
+                color: $red;
+            }
         }
         i{
             font-size: 16px;
         }
     }
     .header__btn{
-        background-color: white;
-        color: $bg;
-        padding: 5px 10px;
+        display: block;
+        text-align: center;
+        width: 90px;
+        padding: 10px 0;
+        background-color: $bg;
+        color: white;
         border-radius: 5px;
+        transition: all 0.3s ease;
+        &:hover{
+            box-shadow: 0 0 0 1px $red;
+        }
     }
     .header__avatar{
         width: 40px;

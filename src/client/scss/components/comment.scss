@@ -1,0 +1,85 @@
+#commentForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 40px;
+    #textarea{
+        all: unset;
+        width: 80%;
+        height: 40px;
+        text-align: center;
+        border: none;
+        background-color: #23272a;
+        color: white;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        &:hover{
+            box-shadow: 0 0 0 1px $red;
+        }
+        &:focus{
+            border-radius: 100px 0 0 100px;
+            box-shadow: 0 0 0 1px $red;
+        }
+    }
+    button{
+        all: unset;
+        width: 200px;
+        height: 40px;
+        text-align: center;
+        background-color: $red;
+        transition: all 0.3s ease;
+    }
+    #textarea:hover~button,
+    #textarea:focus~button{
+        box-shadow: 0 0 0 1px $red;
+    }
+    #textarea:focus~button{
+        border-radius: 0 100px 100px 0;
+    }
+}
+
+.comment{
+    align-self: center;
+    margin-bottom: 20px;
+    display: flex;
+    height: 70px;
+    border-radius: 100px;
+    padding: 0 130px 0 30px;
+    background-color: #23272a;
+    align-items: center;
+    flex-direction: row;
+    box-shadow: 0 0 0 1px $red;
+    position: relative;
+    img{
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 0;
+        margin-right: 10px;
+    }
+    .del{
+        position: absolute;
+        right: 30px;
+        width: 70px;
+        border-radius: 100px;
+        font-size: 10px;
+        padding: 5px 0;
+        text-transform: uppercase;
+        text-align: center;
+        background-color: $bg;
+        border: 1px solid $red;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        &:hover{
+            background-color: $red;
+        }
+    }
+    a{
+        &:nth-child(2){
+            color: red;
+            margin-right: 20px;
+        }
+    }
+}

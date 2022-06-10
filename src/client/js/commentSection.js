@@ -22,7 +22,9 @@ const addComment = (text, commentId) => {
     if(!profile){
         profileImg.style = "display: none;"; 
     }else{
-        profileImg.src = profile.src;
+        profileImg.src = `/${profile.src}`;
+        profileImg.crossOrigin = true;
+        profileImg.onerror = function(event){event.target.src=profile.src};
     }
     profileImg.className = "comment__avatar";
     const username = document.createElement("a");
@@ -33,7 +35,7 @@ const addComment = (text, commentId) => {
     const del = document.createElement("span");
     del.className = "del";
     del.dataset.id = commentId;
-    del.innerText = "X";
+    del.innerText = "Delete";
     del.addEventListener("click", handleDelete);
     linkImg.appendChild(profileImg);
     comment.appendChild(linkImg);
@@ -45,7 +47,7 @@ const addComment = (text, commentId) => {
     return;
 }
 
-const textarea = form.querySelector("textarea");
+const textarea = form.querySelector("input");
 const videoContainer = document.getElementById("videoContainer");
 
 const handleSubmit = async(event) => {
