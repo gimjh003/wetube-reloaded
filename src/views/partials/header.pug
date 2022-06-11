@@ -22,7 +22,7 @@ header
                 li
                     a(href=`/users/${loggedInBy._id}` data-name=loggedInBy.username data-id=loggedInBy._id)#profile
                         if loggedInBy.avatarUrl
-                            img(src=`/${loggedInBy.avatarUrl}` crossorigin onerror=`this.src="${loggedInBy.avatarUrl}"`).header__avatar
+                            img(src=loggedInBy.avatarUrl).header__avatar
                         else
                             span #{loggedInBy.username}
 div#header-box

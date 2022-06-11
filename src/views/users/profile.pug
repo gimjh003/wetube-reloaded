@@ -3,7 +3,7 @@ include ../mixins/video
 
 block content
     div.profile__data
-        img(src=`/${loggedInBy.avatarUrl}` crossorigin onerror=`${loggedInBy.avatarUrl? `this.src="${loggedInBy.avatarUrl}"`:"this.style.display='none'"}`).avatar
+        img(src=`${loggedInBy.avatarUrl}`, crossorigin, onerror="this.style.display='none';").avatar
         h3=user.username
     div.video-grid
         each video in user.videos

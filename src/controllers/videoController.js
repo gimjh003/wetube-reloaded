@@ -22,6 +22,7 @@ export const home = async(req, res) => {
 }
 export const watch = async(req, res) => {
     const {id} = req.params;
+    console.log(req.params);
     const video = await Video.findById(id).populate("owner").populate("comments");
     for(const comment in video.comments){
         video.comments[comment].owner = await User.findById(video.comments[comment].owner);
@@ -74,8 +75,8 @@ export const postUpload = async(req, res) => {
     try{
         const newVideo = await Video.create({
             title,
-            fileUrl: video[0].path,
-            thumbUrl: thumb[0].path.replace(/[\\]/g, "/"),
+            fileUrl: video[0].location,
+            thumbUrl: thumb[0].location,
             description,
             hashtags: Video.formatHashtags(hashtags),
             owner: _id,

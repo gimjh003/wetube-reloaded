@@ -1,7 +1,7 @@
 mixin comment(comment)
     div.comment
         a(href=`/users/${comment.owner._id}`)
-            img(src=`/${comment.owner.avatarUrl}` crossorigin onerror=`${comment.owner.avatarUrl? `this.src="${comment.owner.avatarUrl}"`:"this.style.display='none'"}`).avatar
+            img(src=`${comment.owner.avatarUrl}` onerror="this.style.display='none'").avatar
         a(href=`/users/${comment.owner._id}`)=comment.owner.username
         span=comment.text
         if loggedInBy.username === comment.owner.username

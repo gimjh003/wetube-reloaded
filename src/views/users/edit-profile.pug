@@ -1,9 +1,10 @@
 extends ../base
 
 block content
+    h4 Edit Profile
     div.edit-profile-container
         if loggedInBy.avatarUrl
-            img(src=`/${loggedInBy.avatarUrl}` crossorigin onerror=`${loggedInBy.avatarUrl? `this.src="${loggedInBy.avatarUrl}"`:"this.style.display='none'"}`).avatar
+            img(src=`${loggedInBy.avatarUrl}` onerror="this.style.display='none';").avatar
         form(method="POST" enctype="multipart/form-data").edit-profile__form.user-form
             label(for="avatar") Avatar
             input(name="avatar" type="file" id="avatar" accept="image/*").default-input

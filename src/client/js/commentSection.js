@@ -23,7 +23,7 @@ const addComment = (text, commentId) => {
         profileImg.style = "display: none;"; 
     }else{
         profileImg.src = `/${profile.src}`;
-        profileImg.crossOrigin = true;
+        profileImg.crossOrigin = "anonymous";
         profileImg.onerror = function(event){event.target.src=profile.src};
     }
     profileImg.className = "comment__avatar";

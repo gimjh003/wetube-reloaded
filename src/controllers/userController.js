@@ -126,17 +126,19 @@ export const postEdit = async(req, res) => {
     if(currentUsername != username){
         const check = await User.exists({username});
         if(check){
+            req.flash("error", "This username is already taken.");
             return res.redirect("/users/edit");
         }
     }
     if(currentEmail != email){
         const check = await User.exists({email});
         if(check){
+            req.flash("error", "This email is already exists.");
             return res.redirect("/users/edit");
         }
     }
     const updatedUser = await User.findByIdAndUpdate(_id, {
-        avatarUrl: file? file.path:avatarUrl, name, email, username, location,
+        avatarUrl: file? file.location:avatarUrl, name, email, username, location,
     }, {new: true});
     req.session.user = updatedUser;
     return res.redirect("/users/edit");
@@ -177,7 +179,9 @@ export const postChangePassword = async(req, res) => {
     return res.redirect("/users/logout");
 }
 export const see = async(req, res) => {
-    const {id} = req.params;
+    const{
+        params:{id},
+    }=req;
     const user = await (await User.findById(id)).populate("videos");
     if(!user){
         return res.status(404).render("404", {pageTitle: "User Not Found"});

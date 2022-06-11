@@ -6,36 +6,34 @@
     margin-bottom: 40px;
     #textarea{
         all: unset;
-        width: 80%;
+        width: 90%;
         height: 40px;
         text-align: center;
         border: none;
-        background-color: #23272a;
+        background-color: #181820;
+        opacity: 0.5;
+        box-shadow: 0 0 0 1px $red;
         color: white;
         font-size: 15px;
         transition: all 0.3s ease;
-        &:hover{
-            box-shadow: 0 0 0 1px $red;
-        }
+        &:hover,
         &:focus{
-            border-radius: 100px 0 0 100px;
-            box-shadow: 0 0 0 1px $red;
+            opacity: 1.0;
         }
+    }
+    #textarea:hover~button,
+    #textarea:focus~button{
+        opacity: 1.0
     }
     button{
         all: unset;
         width: 200px;
         height: 40px;
+        opacity: 0.5;
+        box-shadow: 0 0 0 1px $red;
         text-align: center;
         background-color: $red;
         transition: all 0.3s ease;
-    }
-    #textarea:hover~button,
-    #textarea:focus~button{
-        box-shadow: 0 0 0 1px $red;
-    }
-    #textarea:focus~button{
-        border-radius: 0 100px 100px 0;
     }
 }
 
@@ -44,12 +42,11 @@
     margin-bottom: 20px;
     display: flex;
     height: 70px;
-    border-radius: 100px;
-    padding: 0 130px 0 30px;
-    background-color: #23272a;
+    padding: 0 130px 0 20px;
+    background-color: #181820;
     align-items: center;
     flex-direction: row;
-    box-shadow: 0 0 0 1px $red;
+    box-shadow: 0 0 0 1px rgba(255,0,0,0.8);
     position: relative;
     img{
         width: 40px;
@@ -61,9 +58,8 @@
     }
     .del{
         position: absolute;
-        right: 30px;
+        right: 20px;
         width: 70px;
-        border-radius: 100px;
         font-size: 10px;
         padding: 5px 0;
         text-transform: uppercase;
@@ -79,7 +75,7 @@
     a{
         &:nth-child(2){
             color: red;
-            margin-right: 20px;
+            margin-right: 10px;
         }
     }
 }
