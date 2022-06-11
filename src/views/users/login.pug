@@ -1,8 +1,7 @@
 extends ../base
 
 block content
-    if errorMessage
-        span=errorMessage
+    h4 Login
     form(method="POST").user-form
         input(type="text", required, name="username" placeholder="username").default-input
         input(type="password", required, name="password", placeholder="password").default-input
